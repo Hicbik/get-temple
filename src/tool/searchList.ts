@@ -109,7 +109,7 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
   let searchList: any[] = [];
 
   if (process.env.isTxMap) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const searchList1 = await searchListTx.getSearchList(region, '寺庙');
       await sleep(2 * 1000);
       const searchList2 = await searchListTx.getSearchList(region, '庵');
@@ -118,14 +118,14 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
       orgTempList = [...orgTempList, ...searchList1, ...searchList2];
     }
   } else if (process.env.isGdMap) {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const searchList1 = await searchListGd.getSearchList(region, '寺庙|庵');
       await sleep(2 * 1000);
 
       orgTempList = [...orgTempList, ...searchList1];
     }
   } else {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const searchList1 = await getSearchList(region, '寺庙');
       await sleep(2 * 1000);
       const searchList2 = await getSearchList(region, '庵');
