@@ -22,7 +22,8 @@ export const getSearchList = async (region, query = '寺庙'): Promise<SearchIte
         page_size: 20,
         page_num: page,
         coord_type: 2,
-        ret_coordtype: 'gcj02ll'
+        ret_coordtype: 'gcj02ll',
+        tag: '旅游景点、寺庙、文物古迹',
       }
     });
     const data = result?.data?.results ?? [];
@@ -72,7 +73,7 @@ export const downloadImg = async (url, filePath) => {
   return await new Promise((resolve, _reject) => {
     request
       .get(url)
-      .on('error', (err) => {
+      .on('error', () => {
         resolve(false);
       })
       .pipe(fs.createWriteStream(outPath))
@@ -96,7 +97,6 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
     orgTempList = [...orgTempList, ...searchList1, ...searchList2];
   }
 
-
   let templeCof = {};
 
   for (const item of orgTempList) {
@@ -112,6 +112,7 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
   for (const searchItem of searchList) {
     try {
       if (!/寺|庵/.test(searchItem.name)) continue;
+      if (/社区|号楼|村委会/.test(searchItem.name)) continue;
       tempList.push({
         placeName: searchItem.area + searchItem.name,
         position: {
