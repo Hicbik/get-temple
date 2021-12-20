@@ -11,7 +11,7 @@ console.log('--------------------------------');
  * 查找全国的寺庙
  */
 const main = async () => {
-  const area = JSON.parse(fs.readFileSync(path.join(__dirname, './area.json'), {encoding: "utf8"}));
+  const area = JSON.parse(fs.readFileSync(path.join(__dirname, './json/area.json'), {encoding: "utf8"}));
   for (const provinceInfo of area) {
     const province = provinceInfo.label;
 
@@ -29,7 +29,7 @@ const main = async () => {
       }
 
       const list = await getTempleList(region);
-      list.length && createXlsx(`../outPath/${province}-${region}-【${list.length}】家寺庙.xlsx`, list);
+      list.length && createXlsx(`../../outPath/${province}-${region}-【${list.length}】家寺庙.xlsx`, list);
     }
   }
 

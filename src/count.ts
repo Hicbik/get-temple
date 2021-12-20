@@ -5,7 +5,7 @@ import xlsx from "node-xlsx";
 import { ColNameStyleList } from "./type";
 
 const main = async () => {
-  const area = JSON.parse(fs.readFileSync(path.join(__dirname, './area.json'), {encoding: "utf8"}));
+  const area = JSON.parse(fs.readFileSync(path.join(__dirname, './json/area.json'), {encoding: "utf8"}));
   const files = fs.readdirSync(path.join(__dirname, '../1'));
 
   let count = 0;
@@ -24,7 +24,7 @@ const main = async () => {
         continue;
       }
 
-      const list = xlsxToJson('../1/' + fileName);
+      const list = xlsxToJson('../../1/' + fileName);
       console.log(`${province}-${region}：${list.length}`);
       workSheets[0].data.push([province, region, list.length]);
       count += list.length;

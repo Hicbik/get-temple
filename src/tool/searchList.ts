@@ -28,6 +28,7 @@ export const getSearchList = async (region, query = '寺庙'): Promise<SearchIte
     });
     const data = result?.data?.results ?? [];
     list = [...list, ...data];
+    await sleep(1000);
     if (list.length < result.data.total) await fn(page + 1);
   };
 
@@ -58,7 +59,7 @@ const getPhotos = async (data: SearchItem, placeName: string) => {
       const url = list[i].pic_url;
       photos.push(url);
       promiseList.push(
-        downloadImg(url, `../outPath/${data.province}/${data.city}/${data.area}/${placeName}/${i + 1}.jpg`)
+        downloadImg(url, `../../outPath/${data.province}/${data.city}/${data.area}/${placeName}/${i + 1}.jpg`)
       );
     }
     await Promise.all(promiseList);

@@ -22,7 +22,7 @@ export const updateTempleImages = async (xlsxPath, province, city) => {
     const find = crmTempleList.find((item) => item.placeName === data[2] && item.address === data[6]);
     if (!find) continue;
     if (find.picture.length > 0) continue;
-    const imageFilePath = `../outPath/${find.province}/${find.city}/${find.area}/${find.placeName}`;
+    const imageFilePath = `../../outPath/${find.province}/${find.city}/${find.area}/${find.placeName}`;
     const prefix = `${find.placeName}`;
     await sleep(1000);
     const picture = await uploadAttach(path.join(__dirname, imageFilePath), prefix);
