@@ -1,7 +1,7 @@
 import xlsx from 'node-xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ColNameList, ColNameStyleList, TempleItem } from "./type";
+import { ColNameList, ColNameStyleList, TempleItem } from "../type";
 
 export const createXlsx = (filePath, data: TempleItem[]) => {
   const workSheets: Array<{ name: string, data: any[] }> = [];

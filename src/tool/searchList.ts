@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SearchItem, TempleItem } from "./type";
+import { SearchItem, TempleItem } from "../type";
 import * as request from "request";
 import * as path from "path";
 import * as fs from "fs";
@@ -111,7 +111,7 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
   const tempList: any[] = [];
   for (const searchItem of searchList) {
     try {
-      if (!/寺|庵/.test(searchItem.name)) continue;
+      if (!/[寺庵]/.test(searchItem.name)) continue;
       if (/社区|号楼|村委会|药店|茶室/.test(searchItem.name)) continue;
       tempList.push({
         placeName: searchItem.area + searchItem.name,

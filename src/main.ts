@@ -1,8 +1,8 @@
-import { createXlsx } from "./xlsx";
-import { getTempleList } from "./searchList";
+import { createXlsx } from "./tool/xlsx";
+import { getTempleList } from "./tool/searchList";
 import * as fs from 'fs';
 import * as path from 'path';
-import { sleep } from "./updateTempleImages";
+import { sleep } from "./tool/updateTempleImages";
 
 console.log('正在开始运行');
 console.log('--------------------------------');

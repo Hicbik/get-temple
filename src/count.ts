@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { xlsxToJson } from './xlsx';
+import { xlsxToJson } from './tool/xlsx';
 import * as path from "path";
 import xlsx from "node-xlsx";
 import { ColNameStyleList } from "./type";
