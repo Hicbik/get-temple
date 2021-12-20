@@ -1,7 +1,6 @@
 import * as fs from 'fs';
-import { createXlsx, xlsxToJson } from './xlsx';
+import { xlsxToJson } from './xlsx';
 import * as path from "path";
-import { getTempleList } from "./searchList";
 import xlsx from "node-xlsx";
 import { ColNameStyleList } from "./type";
 
@@ -10,7 +9,6 @@ const main = async () => {
   const files = fs.readdirSync(path.join(__dirname, '../1'));
 
   let count = 0;
-  let data = [];
 
   const workSheets: Array<{ name: string, data: any[] }> = [{name: '1', data: []}];
 
@@ -22,16 +20,11 @@ const main = async () => {
 
       const fileName = files.find((name) => new RegExp(`${province}-${region}`).test(name));
 
-      // console.log(`${province}-${region}`);
-      // console.log(fileName);
-      // console.log('------------');
-
       if (!fileName) {
         continue;
       }
 
-      let list = xlsxToJson('../1/' + fileName);
-      list = list.filter((item) => /寺|庵/.test(item.placeName));
+      const list = xlsxToJson('../1/' + fileName);
       console.log(`${province}-${region}：${list.length}`);
       workSheets[0].data.push([province, region, list.length]);
       count += list.length;
@@ -40,10 +33,7 @@ const main = async () => {
 
   const options = {'!cols': ColNameStyleList};
   const buffer: any = xlsx.build(workSheets, options);
-  fs.writeFileSync(path.join(__dirname, '../demo.xlsx'), buffer, {'flag': 'w'});
-
-  console.log(count);
-
+  fs.writeFileSync(path.join(__dirname, `../全国寺庙共$【${count}】家.xlsx`), buffer, {'flag': 'w'});
 };
 
-main();
+main().then();

@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "start2": "ts-node src/index2.ts"
-
+    "main": "ts-node src/main.ts",
+    "count": "ts-node src/count.ts",
+    "one": "ts-node src/one.ts"
   },
   "devDependencies": {
     "@types/node": "^16.10.9",
