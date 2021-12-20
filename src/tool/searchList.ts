@@ -6,6 +6,7 @@ import * as fs from "fs";
 import { ensureDirectoryExistence } from "./xlsx";
 import { sleep } from "./updateTempleImages";
 import * as searchListTx from './searchList.tx';
+import * as searchListGd from './searchList.gd';
 
 const AK = 'nNRTn5Rof4b2odABsYr31Zy1FOGIiDeY';
 
@@ -38,6 +39,24 @@ export const getSearchList = async (region, query = '寺庙'): Promise<SearchIte
 };
 
 const getPhotos = async (data: SearchItem, placeName: string) => {
+  const photos: string[] = [];
+
+  if (data.detail_info.photos) {
+    const promiseList: any[] = [];
+
+    let index: number = 0;
+    for (const item of data.detail_info.photos) {
+      photos.push(item);
+      promiseList.push(
+        downloadImg(item, `../../outPath/${data.province}/${data.city}/${data.area}/${placeName}/${index + 1}.jpg`)
+      );
+      index += 1;
+    }
+    await Promise.all(promiseList);
+
+    return photos;
+  }
+
   const result: any = await axios.get('https://map.baidu.com/', {
     params: {
       uid: data.uid,
@@ -50,7 +69,6 @@ const getPhotos = async (data: SearchItem, placeName: string) => {
       compat: 1,
     }
   });
-  const photos: string[] = [];
   const comments = result?.data?.content?.ext?.detail_info?.comments ?? [];
   for (const item of comments) {
     const list = item?.comment_photo ?? [];
@@ -98,6 +116,13 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
       await sleep(2 * 1000);
 
       orgTempList = [...orgTempList, ...searchList1, ...searchList2];
+    }
+  } else if (process.env.isGdMap) {
+    for (let i = 0; i < 5; i++) {
+      const searchList1 = await searchListGd.getSearchList(region, '寺庙|庵');
+      await sleep(2 * 1000);
+
+      orgTempList = [...orgTempList, ...searchList1];
     }
   } else {
     for (let i = 0; i < 5; i++) {

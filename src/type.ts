@@ -9,6 +9,7 @@ export interface SearchItem {
   uid: string;
   detail_info: {
     comment_num?: string
+    photos?: string[]
   };
   address: string;
 }

@@ -2,6 +2,7 @@
   "scripts": {
     "main": "ts-node src/main.ts",
     "main-tx": "set isTxMap=true && ts-node src/main.ts",
+    "main-gd": "set isGdMap=true && ts-node src/main.ts",
     "count": "ts-node src/count.ts",
     "one": "ts-node src/one.ts"
   },

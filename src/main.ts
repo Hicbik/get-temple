@@ -7,6 +7,9 @@ import { sleep } from "./tool/updateTempleImages";
 console.log('正在开始运行');
 console.log('--------------------------------');
 
+let outPath = 'outPath';
+if (process.env.isGdMap) outPath = 'outPath-gd';
+
 /**
  * 查找全国的寺庙
  */
@@ -21,7 +24,7 @@ const main = async () => {
       const region = regionInfo.label;
       const key = `${province}-${region}`;
 
-      const xlsxList = fs.readdirSync(path.join(__dirname, '../outPath'));
+      const xlsxList = fs.readdirSync(path.join(__dirname, `../${outPath}`));
       if (xlsxList.find((item) => /xlsx/.test(item) && new RegExp(key).test(item))) {
         console.log(`【${key}】已存在！`);
         console.log('--------------------------------');
@@ -29,7 +32,7 @@ const main = async () => {
       }
 
       const list = await getTempleList(region);
-      list.length && createXlsx(`../../outPath/${province}-${region}-【${list.length}】家寺庙.xlsx`, list);
+      list.length && createXlsx(`../../${outPath}/${province}-${region}-【${list.length}】家寺庙.xlsx`, list);
     }
   }
 
