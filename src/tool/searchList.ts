@@ -5,6 +5,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { ensureDirectoryExistence } from "./xlsx";
 import { sleep } from "./updateTempleImages";
+import * as searchListTx from './searchList.tx';
 
 const AK = 'nNRTn5Rof4b2odABsYr31Zy1FOGIiDeY';
 
@@ -89,13 +90,24 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
   let orgTempList: any[] = [];
   let searchList: any[] = [];
 
-  for (let i = 0; i < 5; i++) {
-    const searchList1 = await getSearchList(region, '寺庙');
-    await sleep(2 * 1000);
-    const searchList2 = await getSearchList(region, '庵');
-    await sleep(2 * 1000);
+  if (process.env.isTxMap) {
+    for (let i = 0; i < 5; i++) {
+      const searchList1 = await searchListTx.getSearchList(region, '寺庙');
+      await sleep(2 * 1000);
+      const searchList2 = await searchListTx.getSearchList(region, '庵');
+      await sleep(2 * 1000);
 
-    orgTempList = [...orgTempList, ...searchList1, ...searchList2];
+      orgTempList = [...orgTempList, ...searchList1, ...searchList2];
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      const searchList1 = await getSearchList(region, '寺庙');
+      await sleep(2 * 1000);
+      const searchList2 = await getSearchList(region, '庵');
+      await sleep(2 * 1000);
+
+      orgTempList = [...orgTempList, ...searchList1, ...searchList2];
+    }
   }
 
   let templeCof = {};
@@ -113,7 +125,7 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
   for (const searchItem of searchList) {
     try {
       if (!/[寺庵]/.test(searchItem.name)) continue;
-      if (/社区|号楼|村委会|药店|茶室/.test(searchItem.name)) continue;
+      if (/社区|号楼|村委会|药店|茶室|村|公交站/.test(searchItem.name)) continue;
       tempList.push({
         placeName: searchItem.area + searchItem.name,
         position: {

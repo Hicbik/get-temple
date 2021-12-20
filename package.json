@@ -1,7 +1,7 @@
 {
   "scripts": {
     "main": "ts-node src/main.ts",
-    "main-tx": "ts-node src/main.tx.ts",
+    "main-tx": "set isTxMap=true && ts-node src/main.ts",
     "count": "ts-node src/count.ts",
     "one": "ts-node src/one.ts"
   },
