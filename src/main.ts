@@ -5,6 +5,8 @@ import * as path from 'path';
 import { sleep } from "./updateTempleImages";
 
 console.log('正在开始运行');
+console.log('--------------------------------');
+
 /**
  * 查找全国的寺庙
  */

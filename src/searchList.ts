@@ -106,13 +106,13 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
     }
   }
 
-  console.log(`【${region}】共找到${searchList.length} 家未过滤的寺庙`);
+  console.log(`【${region}】共找到【${searchList.length}】条信息`);
 
   const tempList: any[] = [];
   for (const searchItem of searchList) {
     try {
       if (!/寺|庵/.test(searchItem.name)) continue;
-      if (/社区|号楼|村委会/.test(searchItem.name)) continue;
+      if (/社区|号楼|村委会|药店|茶室/.test(searchItem.name)) continue;
       tempList.push({
         placeName: searchItem.area + searchItem.name,
         position: {
@@ -132,8 +132,8 @@ export const getTempleList = async (region): Promise<TempleItem[]> => {
     }
   }
 
-  console.log(`【${region}】共找到${tempList.length} 家寺庙`);
-  console.log(`-----------`);
+  console.log(`【${region}】共找到【${tempList.length}】家寺庙`);
+  console.log('--------------------------------');
 
   return tempList;
 };
