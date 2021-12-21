@@ -3,13 +3,13 @@ import axios from "axios";
 import * as fs from 'fs';
 import * as path from 'path';
 
-// const URL = 'http://test.server.tmp.heychen.com.cn';
-// const COOKIES = 'MANAGE_SESS=3327a8a928dfe00fca94e9783588b916; MANAGE_SESS.sig=yrVWLybtosjM1n5sqVxEHvBykWXpXZivFjSkV6sv04s';
-// const GROUP_ID = '61396fd1ea2d09631b808830';
+const URL = 'http://test.server.tmp.heychen.com.cn';
+const COOKIES = 'MANAGE_SESS=77e3141dd34024a864d0d43fffbdf1d1; MANAGE_SESS.sig=XNfBHwTWQz3702FWt5w6qIN1x351BUDgXRCEcrDwoXE';
+const GROUP_ID = '61396fd1ea2d09631b808830';
 
-const URL = 'http://prod.server.tmp.heychen.cn';
-const COOKIES = 'SameSite=None; SameSite.sig=vM6MaQ_p2VuipSq0vWf6qV23bmWTYDJwEFhXwyj01HY; MANAGE_SESS=b0ace20065c524088c082fd7bab9a78c; MANAGE_SESS.sig=ZrldaxPCQWIwVvu7l6WvluLalVvU_QdxIBnF-TrLX4M';
-const GROUP_ID = '6194f28001503050113b1619';
+// const URL = 'http://prod.server.tmp.heychen.cn';
+// const COOKIES = 'SameSite=None; SameSite.sig=vM6MaQ_p2VuipSq0vWf6qV23bmWTYDJwEFhXwyj01HY; MANAGE_SESS=f405cc8055e8976158311a7642d2030d; MANAGE_SESS.sig=FX1xisfcpzs4SZy4Rg8bNyhsTi9XiX1eyVc2NwOpHYk';
+// const GROUP_ID = '6194f28001503050113b1619';
 
 export const updateTempleImages = async (xlsxPath, province, city) => {
   const crmTempleList = await getCrmTempleList(province, city);
@@ -48,7 +48,6 @@ export const getCrmTempleList = async (province, city) => {
   const crmTempleResult: any = await axios.post(`${URL}/api/comm/getList_crm_mgrReligionInfo`, {
     "apiKey": "crm_mgrReligionInfo",
     "data": {
-      "areas": {"province": "广东省", "city": "梅州市", "area": ""},
       "religionName": "",
       "placeName": "",
       "address": "",

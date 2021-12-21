@@ -1,5 +1,7 @@
 import { updateTempleImages } from "./tool/updateTempleImages";
 
 const updateImage = () => {
-  updateTempleImages('../xlsx/广东省-河源市-【66】家寺庙.xlsx', '广东省', '河源市').then();
+  updateTempleImages('../../merge/江西省-赣州市-共【416】家.xlsx', '江西省', '赣州市').then();
 };
+
+updateImage()

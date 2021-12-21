@@ -5,7 +5,8 @@
     "main-gd": "set isGdMap=true && ts-node src/main.ts",
     "count": "ts-node src/count.ts",
     "one": "ts-node src/one.ts",
-    "merge": "ts-node src/merge.ts"
+    "merge": "ts-node src/merge.ts",
+    "uploadImages": "ts-node src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^16.10.9",
