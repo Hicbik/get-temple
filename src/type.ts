@@ -27,6 +27,7 @@ export interface TempleItem {
   contacts: string;
   picture: string[];
   tag: string;
+  personCharge: string
 }
 
 export const ColNameList = [

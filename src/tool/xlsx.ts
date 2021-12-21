@@ -43,7 +43,7 @@ export const templeItemToXlsxItem = (item: TempleItem): any[] => {
     item.city,
     item.area,
     address,
-    '',
+    item.personCharge || '',
     item.contacts || '',
     `${item.position.latitude}#${item.position.longitude}`,
     item.tag,
@@ -72,13 +72,14 @@ export const xlsxToJson = (xlsxPath): TempleItem[] => {
             position: {latitude: position[0], longitude: position[1]},
             province: row[3],
             tag: row[10],
-            placeName: row[2]
+            placeName: row[2],
+            personCharge: row[7]
           });
         }
       }
     });
     return list;
-  }catch (e) {
-    return []
+  } catch (e) {
+    return [];
   }
 };
