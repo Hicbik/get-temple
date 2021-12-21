@@ -4,7 +4,8 @@
     "main-tx": "set isTxMap=true && ts-node src/main.ts",
     "main-gd": "set isGdMap=true && ts-node src/main.ts",
     "count": "ts-node src/count.ts",
-    "one": "ts-node src/one.ts"
+    "one": "ts-node src/one.ts",
+    "merge": "ts-node src/merge.ts"
   },
   "devDependencies": {
     "@types/node": "^16.10.9",

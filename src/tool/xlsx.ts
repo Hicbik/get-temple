@@ -52,29 +52,33 @@ export const templeItemToXlsxItem = (item: TempleItem): any[] => {
 };
 
 export const xlsxToJson = (xlsxPath): TempleItem[] => {
-  const sheets: any = xlsx.parse(fs.readFileSync(path.join(__dirname, xlsxPath)));
+  try {
+    const sheets: any = xlsx.parse(fs.readFileSync(path.join(__dirname, xlsxPath)));
 
-  const list: TempleItem[] = [];
-  sheets.forEach((sheet) => {
-    for (const rowId in sheet['data']) {
-      let row = sheet['data'][rowId];
-      if (row.length < 2) return;
+    const list: TempleItem[] = [];
+    sheets.forEach((sheet) => {
+      for (const rowId in sheet['data']) {
+        let row = sheet['data'][rowId];
+        if (row.length < 2) return;
 
-      if (rowId !== '0') {
-        const position = row[9].split('#');
-        list.push({
-          address: row[6],
-          area: row[5],
-          city: row[4],
-          contacts: row[8],
-          picture: row[11] === '有' ? ['todo'] : [],
-          position: {latitude: position[0], longitude: position[1]},
-          province: row[3],
-          tag: row[10],
-          placeName: row[2]
-        });
+        if (rowId !== '0') {
+          const position = row[9].split('#');
+          list.push({
+            address: row[6],
+            area: row[5],
+            city: row[4],
+            contacts: row[8],
+            picture: row[11] === '有' ? ['todo'] : [],
+            position: {latitude: position[0], longitude: position[1]},
+            province: row[3],
+            tag: row[10],
+            placeName: row[2]
+          });
+        }
       }
-    }
-  });
-  return list;
+    });
+    return list;
+  }catch (e) {
+    return []
+  }
 };

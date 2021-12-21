@@ -6,7 +6,7 @@ import { ColNameStyleList } from "./type";
 
 const main = async () => {
   const area = JSON.parse(fs.readFileSync(path.join(__dirname, './json/area.json'), {encoding: "utf8"}));
-  const files = fs.readdirSync(path.join(__dirname, '../1'));
+  const files = fs.readdirSync(path.join(__dirname, '../merge'));
 
   let count = 0;
 
@@ -24,7 +24,7 @@ const main = async () => {
         continue;
       }
 
-      const list = xlsxToJson('../../1/' + fileName);
+      const list = xlsxToJson('../../merge/' + fileName);
       console.log(`${province}-${region}：${list.length}`);
       workSheets[0].data.push([province, region, list.length]);
       count += list.length;
@@ -33,7 +33,7 @@ const main = async () => {
 
   const options = {'!cols': ColNameStyleList};
   const buffer: any = xlsx.build(workSheets, options);
-  fs.writeFileSync(path.join(__dirname, `../全国寺庙共$【${count}】家.xlsx`), buffer, {'flag': 'w'});
+  fs.writeFileSync(path.join(__dirname, `../全国寺庙共【${count}】家.xlsx`), buffer, {'flag': 'w'});
 };
 
 main().then();
